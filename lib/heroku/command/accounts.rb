@@ -1,12 +1,13 @@
-require 'yaml'
+require "fileutils"
+require "yaml"
 
 class Heroku::Command::Accounts < Heroku::Command::Base
 
   def index
-    puts "No accounts found." if account_names.empty?
+    display "No accounts found." if account_names.empty?
 
     account_names.each do |name|
-      puts "%s: %s" % [ name, account(name)[:identity_file] ]
+      display name
     end
   end
 
@@ -19,18 +20,46 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     auth = Heroku::Command::Auth.new(nil)
     username, password = auth.ask_for_credentials
 
-    print "Path to identity file: "
-    identity_file = ask
-
     write_account(name,
       :username      => username,
-      :password      => password,
-      :identity_file => identity_file
+      :password      => password
     )
+
+    display ""
+    display "Add the following to your ~/.ssh/config"
+    display ""
+    display "Host heroku.#{name}"
+    display "  IdentityFile /PATH/TO/PRIVATE/KEY"
+    display "  IdentitiesOnly yes"
   end
 
   def remove
+    name = args.shift
+
+    error("Please specify an account name.") unless name
     error("That account does not exist.") unless account_exists?(name)
+
+    FileUtils.rm_f(account_file(name))
+    
+    display "Account removed: #{name}"
+  end
+
+  def remotes
+    require "pp"
+    pp git_remotes('.')
+  end
+
+  def set
+    name = args.shift
+
+    error("Please specify an account name.") unless name
+    error("That account does not exist.") unless account_exists?(name)
+
+    %x{ git config heroku.account #{name} }
+
+    git_remotes(Dir.pwd).each do |remote, app|
+      %x{ git config remote.#{remote}.url git@heroku.#{name}:#{app}.git }
+    end
   end
 
 ## account interface #########################################################
@@ -49,7 +78,7 @@ private ######################################################################
 
   def accounts_directory
     @accounts_directory ||= begin
-      directory = File.join(home_directory, '.heroku', 'accounts')
+      directory = File.join(home_directory, ".heroku", "accounts")
       FileUtils::mkdir_p(directory)
       directory
     end
@@ -60,7 +89,7 @@ private ######################################################################
   end
 
   def account_names
-    Dir[File.join(accounts_directory, '*')].map { |d| File.basename(d) }
+    Dir[File.join(accounts_directory, "*")].map { |d| File.basename(d) }
   end
 
   def account_exists?(name)
@@ -72,7 +101,7 @@ private ######################################################################
   end
 
   def write_account(name, account)
-    File.open(account_file(name), 'w') { |f| f.puts YAML::dump(account) }
+    File.open(account_file(name), "w") { |f| f.puts YAML::dump(account) }
   end
 
   def error(message)
