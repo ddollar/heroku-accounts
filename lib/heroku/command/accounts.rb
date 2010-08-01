@@ -29,6 +29,7 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     display "Add the following to your ~/.ssh/config"
     display ""
     display "Host heroku.#{name}"
+    display "  Hostname heroku.com"
     display "  IdentityFile /PATH/TO/PRIVATE/KEY"
     display "  IdentitiesOnly yes"
   end

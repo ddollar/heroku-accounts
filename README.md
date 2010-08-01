@@ -16,6 +16,7 @@ To add accounts:
     Add the following to your ~/.ssh/config
 
     Host heroku.personal
+      Hostname Hostname heroku.com
       IdentityFile /PATH/TO/PRIVATE/KEY
       IdentitiesOnly yes
 
