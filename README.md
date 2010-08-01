@@ -1,5 +1,7 @@
 # Heroku Accounts
 
+Helps use multiple accounts on Heroku.
+
 ## Installation
 
     $ heroku plugins:install git://github.com/ddollar/heroku-accounts.git
