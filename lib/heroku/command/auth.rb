@@ -12,9 +12,9 @@ module Heroku::Command
   private ####################################################################
 
     def extract_account
-      @account ||= begin        
+      @account ||= begin
         account = extract_option('--account')
-        
+
         unless account
           account = %x{ git config heroku.account }.chomp
         end

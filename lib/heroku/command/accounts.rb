@@ -41,7 +41,7 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     error("That account does not exist.") unless account_exists?(name)
 
     FileUtils.rm_f(account_file(name))
-    
+
     display "Account removed: #{name}"
   end
 
