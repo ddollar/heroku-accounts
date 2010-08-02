@@ -22,6 +22,19 @@ To add accounts:
       IdentityFile /PATH/TO/PRIVATE/KEY
       IdentitiesOnly yes
 
+Or you can choose a fully-automated approach:
+
+    $ heroku accounts:add work --auto
+    Enter your Heroku credentials.
+    Email: work@example.org
+    Password: ******
+    Generating new SSH key
+    Generating public/private rsa key pair.
+    Your identification has been saved in ~/.ssh/identity.heroku.work.
+    Your public key has been saved in ~/.ssh/identity.heroku.work.pub.
+    Adding entry to ~/.ssh/config
+    Adding public key to Heroku account: work@example.org
+
 To switch an app to a different account:
 
     # in project root

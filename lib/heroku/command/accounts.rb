@@ -25,13 +25,31 @@ class Heroku::Command::Accounts < Heroku::Command::Base
       :password      => password
     )
 
-    display ""
-    display "Add the following to your ~/.ssh/config"
-    display ""
-    display "Host heroku.#{name}"
-    display "  HostName heroku.com"
-    display "  IdentityFile /PATH/TO/PRIVATE/KEY"
-    display "  IdentitiesOnly yes"
+    if extract_option("--auto") then
+      display "Generating new SSH key"
+      system %{ ssh-keygen -t rsa -f #{account_ssh_key(name)} -N "" }
+
+      display "Adding entry to ~/.ssh/config"
+      File.open(File.expand_path("~/.ssh/config"), "a") do |file|
+        file.puts
+        file.puts "Host heroku.#{name}"
+        file.puts "  HostName heroku.com"
+        file.puts "  IdentityFile #{account_ssh_key(name)}"
+        file.puts "  IdentitiesOnly yes"
+      end
+
+      display "Adding public key to Heroku account: #{username}"
+      client = Heroku::Client.new(username, password)
+      client.add_key(File.read(File.expand_path(account_ssh_key(name) + ".pub")))
+    else
+      display ""
+      display "Add the following to your ~/.ssh/config"
+      display ""
+      display "Host heroku.#{name}"
+      display "  HostName heroku.com"
+      display "  IdentityFile /PATH/TO/PRIVATE/KEY"
+      display "  IdentitiesOnly yes"
+    end
   end
 
   def remove
@@ -90,6 +108,10 @@ private ######################################################################
 
   def account_exists?(name)
     account_names.include?(name)
+  end
+
+  def account_ssh_key(name)
+    "~/.ssh/identity.heroku.#{name}"
   end
 
   def read_account(name)
