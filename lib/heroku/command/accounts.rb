@@ -45,11 +45,6 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     display "Account removed: #{name}"
   end
 
-  def remotes
-    require "pp"
-    pp git_remotes('.')
-  end
-
   def set
     name = args.shift
 
