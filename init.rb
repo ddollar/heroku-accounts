@@ -6,7 +6,7 @@ Heroku::Command::Help.group("Accounts") do |group|
   group.command "accounts",               "list accounts"
   group.command "accounts:add <name>",    "add an account"
   group.command "accounts:remove <name>", "remove an account"
-  group.command "accounts:set <name>",    "use an account"
+  group.command "accounts:set <name>",    "use in an app directory to set the account for that app"
 end
 
 class Heroku::Command::Base
