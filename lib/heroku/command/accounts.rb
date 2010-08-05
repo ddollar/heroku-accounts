@@ -76,6 +76,15 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     end
   end
 
+  def default
+    name = args.shift
+
+    error("Please specify an account name.") unless name
+    error("That account does not exist.") unless account_exists?(name)
+
+    %x{ git config --global heroku.account #{name} }
+  end
+
 ## account interface #########################################################
 
   def self.account(name)

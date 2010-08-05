@@ -50,3 +50,7 @@ To remove an account:
 
     $ heroku accounts:remove personal
     Account removed: personal
+
+Set a machine-wide default account:
+
+    $ heroku accounts:default personal
