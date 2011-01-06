@@ -16,7 +16,7 @@ module Heroku::Command
         account = extract_option('--account')
 
         unless account
-          account = %x{ git config heroku.account }.chomp
+          account = ENV["HEROKU_ACCOUNT"] || %x{ git config heroku.account }.chomp
         end
 
         raise(CommandFailed, <<-ERROR) if account.to_s.strip == ''
