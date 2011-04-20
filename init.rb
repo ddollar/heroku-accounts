@@ -1,6 +1,7 @@
 require "fileutils"
-require "heroku/command/accounts"
-require "heroku/command/auth"
+require "ext/heroku/auth"
+require "ext/heroku/command/accounts"
+require "ext/heroku/command/auth"
 
 Heroku::Command::Help.group("Accounts") do |group|
   group.command "accounts",                "list accounts"
@@ -28,4 +29,8 @@ class Heroku::Command::Base
     remotes
   end
 
+end
+
+if Heroku::Command.respond_to?(:global_option)
+  Heroku::Command.global_option :account, "--account ACCOUNT"
 end
