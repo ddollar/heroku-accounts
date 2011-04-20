@@ -17,7 +17,6 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     error("Please specify an account name.") unless name
     error("That account already exists.") if account_exists?(name)
 
-    auth = Heroku::Command::Auth.new(nil)
     username, password = auth.ask_for_credentials
 
     write_account(name,
@@ -121,6 +120,14 @@ private ######################################################################
 
   def account_ssh_key(name)
     "~/.ssh/identity.heroku.#{name}"
+  end
+
+  def auth
+    if Heroku::VERSION < "2.0"
+      Heroku::Command::Auth.new("")
+    else
+      Heroku::Auth
+    end
   end
 
   def read_account(name)

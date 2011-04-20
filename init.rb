@@ -31,6 +31,6 @@ class Heroku::Command::Base
 
 end
 
-if Heroku::Command.respond_to?(:global_option)
+if Heroku::Version >= "2.0"
   Heroku::Command.global_option :account, "--account ACCOUNT"
 end
