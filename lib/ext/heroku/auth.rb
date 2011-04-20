@@ -2,7 +2,6 @@ module Heroku
   class Auth
 
     def self.user
-      puts "wee"
       fetch_from_account[:username]
     end
 
