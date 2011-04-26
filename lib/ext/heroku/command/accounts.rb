@@ -1,8 +1,14 @@
 require "fileutils"
 require "yaml"
 
+# manage multiple heroku accounts
+#
 class Heroku::Command::Accounts < Heroku::Command::Base
 
+  # accounts
+  #
+  # list all known accounts
+  #
   def index
     display "No accounts found." if account_names.empty?
 
@@ -11,6 +17,12 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     end
   end
 
+  # accounts:add
+  #
+  # add an account to the local credential store
+  #
+  # -a, --auto  # automatically generate an ssh key and add it to .ssh/config
+  #
   def add
     name = args.shift
 
@@ -51,6 +63,10 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     end
   end
 
+  # accounts:remove
+  #
+  # remove an account from the local credential store
+  #
   def remove
     name = args.shift
 
@@ -62,6 +78,10 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     display "Account removed: #{name}"
   end
 
+  # accounts:set
+  #
+  # set the default account of an app
+  #
   def set
     name = args.shift
 
@@ -75,6 +95,10 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     end
   end
 
+  # accounts:default
+  #
+  # set a system-wide default account
+  #
   def default
     name = args.shift
 
