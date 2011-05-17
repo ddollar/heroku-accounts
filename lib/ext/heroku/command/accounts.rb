@@ -12,8 +12,14 @@ class Heroku::Command::Accounts < Heroku::Command::Base
   def index
     display "No accounts found." if account_names.empty?
 
+    current_account = Heroku::Auth.extract_account
+
     account_names.each do |name|
-      display name
+      if name == current_account
+        display "* #{name}"
+      else
+        display name
+      end
     end
   end
 
