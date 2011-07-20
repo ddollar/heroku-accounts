@@ -149,7 +149,7 @@ private ######################################################################
   end
 
   def account_ssh_key(name)
-    "~/.ssh/identity.heroku.#{name}"
+    File.expand_path("~/.ssh/identity.heroku.#{name}")
   end
 
   def auth
