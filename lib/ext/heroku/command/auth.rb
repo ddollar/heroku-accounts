@@ -19,7 +19,7 @@ module Heroku::Command
           account = ENV["HEROKU_ACCOUNT"] || %x{ git config heroku.account }.chomp
         end
 
-        raise(CommandFailed, <<-ERROR) if account.to_s.strip == ''
+        raise(Heroku::Command::CommandFailed, <<-ERROR) if account.to_s.strip == ''
 No account specified.
 
 Run this command with --account <account name>
