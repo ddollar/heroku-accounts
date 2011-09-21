@@ -13,7 +13,7 @@ module Heroku
 
     def self.extract_account
       @account ||= begin
-        account = Heroku::Command.current_options[:account]
+        account = Heroku::Command.current_options[:account] rescue nil
 
         unless account
           account = ENV["HEROKU_ACCOUNT"] || %x{ git config heroku.account }.chomp
