@@ -54,3 +54,7 @@ To remove an account:
 Set a machine-wide default account:
 
     $ heroku accounts:default personal
+
+To clone a git repository from Heroku, change 'heroku.com' to the Host of the desired account defined in your .ssh/config:
+
+    $ git clone git@heroku.work:repository.git
