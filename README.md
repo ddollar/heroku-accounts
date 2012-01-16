@@ -59,8 +59,8 @@ To clone a git repository from Heroku, change 'heroku.com' to the Host of the de
 
     $ git clone git@heroku.work:repository.git
 
-To change an existing git origin URL to your new ssh alias:
+If you want to switch the account for an app:
 
-    $ git remote set-url heroku git@heroku.work:heroku-app-name.git
+    $ heroku accounts:set work
 
-Alternatively, you can edit the origin URL in `.git/config`.
+This also changes the URL of the git origin `heroku` to make sure you're using the correct SSH host.
