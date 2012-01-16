@@ -58,3 +58,9 @@ Set a machine-wide default account:
 To clone a git repository from Heroku, change 'heroku.com' to the Host of the desired account defined in your .ssh/config:
 
     $ git clone git@heroku.work:repository.git
+
+To change an existing git origin URL to your new ssh alias:
+
+    $ git remote set-url heroku git@heroku.work:heroku-app-name.git
+
+Alternatively, you can edit the origin URL in `.git/config`.
