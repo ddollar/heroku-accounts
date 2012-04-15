@@ -51,7 +51,7 @@ class Heroku::Command::Accounts < Heroku::Command::Base
         file.puts
         file.puts "Host heroku.#{name}"
         file.puts "  HostName heroku.com"
-        file.puts "  IdentityFile #{account_ssh_key(name)}"
+        file.puts "  IdentityFile \"#{account_ssh_key(name)}\""
         file.puts "  IdentitiesOnly yes"
       end
 
