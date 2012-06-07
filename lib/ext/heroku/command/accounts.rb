@@ -81,6 +81,11 @@ class Heroku::Command::Accounts < Heroku::Command::Base
 
     FileUtils.rm_f(account_file(name))
 
+    # if the removed account is default, unset default
+    if %x{ git config --global heroku.account }.chomp == name
+      %x{ git config --global --unset heroku.account }
+    end
+
     display "Account removed: #{name}"
   end
 
