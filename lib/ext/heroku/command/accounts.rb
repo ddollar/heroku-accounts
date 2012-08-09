@@ -56,8 +56,8 @@ class Heroku::Command::Accounts < Heroku::Command::Base
       end
 
       display "Adding public key to Heroku account: #{username}"
-      client = Heroku::Client.new(username, password)
-      client.add_key(File.read(File.expand_path(account_ssh_key(name) + ".pub")))
+      Heroku::Auth.credentials = [username, password]
+      Heroku::Auth.api.post_key(File.read(File.expand_path(account_ssh_key(name) + ".pub")))
     else
       display ""
       display "Add the following to your ~/.ssh/config"
