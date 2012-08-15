@@ -35,7 +35,11 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     error("Please specify an account name.") unless name
     error("That account already exists.") if account_exists?(name)
 
-    username, password = auth.ask_for_credentials
+    begin
+      username, password = auth.ask_for_credentials
+    rescue Heroku::API::Errors::NotFound
+      error('Authentication failed.')
+    end
 
     write_account(name,
       :username      => username,
