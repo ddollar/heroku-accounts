@@ -46,7 +46,7 @@ class Heroku::Command::Accounts < Heroku::Command::Base
       :password      => password
     )
 
-    if extract_option("--auto") then
+    if options[:auto] then
       display "Generating new SSH key"
       system %{ ssh-keygen -t rsa -f #{account_ssh_key(name)} -N "" }
 
