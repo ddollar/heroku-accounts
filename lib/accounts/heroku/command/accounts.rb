@@ -1,3 +1,4 @@
+require "heroku/command/base"
 require "fileutils"
 require "yaml"
 
