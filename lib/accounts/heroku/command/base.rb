@@ -5,6 +5,8 @@ class Heroku::Command::Base
   def git_remotes(base_dir)
     remotes = {}
 
+    return unless File.exists?(".git")
+    
     FileUtils.chdir(base_dir) do
       remote_names = %x{ git remote }.split("\n").map { |r| r.strip }
       remote_names.each do |name|
