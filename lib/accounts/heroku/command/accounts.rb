@@ -31,7 +31,8 @@ class Heroku::Command::Accounts < Heroku::Command::Base
   # -a, --auto  # automatically generate an ssh key and add it to .ssh/config
   #
   def add
-    name = args.shift
+        
+    Heroku::Command.current_options[:account] = name = args.shift
 
     error("Please specify an account name.") unless name
     error("That account already exists.") if account_exists?(name)
@@ -72,6 +73,7 @@ class Heroku::Command::Accounts < Heroku::Command::Base
       display "  IdentityFile /PATH/TO/PRIVATE/KEY"
       display "  IdentitiesOnly yes"
     end
+    
   end
 
   # accounts:remove
@@ -79,7 +81,7 @@ class Heroku::Command::Accounts < Heroku::Command::Base
   # remove an account from the local credential store
   #
   def remove
-    name = args.shift
+    Heroku::Command.current_options[:account] = name = args.shift
 
     error("Please specify an account name.") unless name
     error("That account does not exist.") unless account_exists?(name)
@@ -99,7 +101,7 @@ class Heroku::Command::Accounts < Heroku::Command::Base
   # set the default account of an app
   #
   def set
-    name = args.shift
+    Heroku::Command.current_options[:account] = name = args.shift
 
     error("Please specify an account name.") unless name
     error("That account does not exist.") unless account_exists?(name)
@@ -116,7 +118,7 @@ class Heroku::Command::Accounts < Heroku::Command::Base
   # set a system-wide default account
   #
   def default
-    name = args.shift
+    Heroku::Command.current_options[:account] = name = args.shift
 
     error("Please specify an account name.") unless name
     error("That account does not exist.") unless account_exists?(name)
