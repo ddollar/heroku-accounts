@@ -143,7 +143,7 @@ private ######################################################################
   def accounts_directory
     @accounts_directory ||= begin
       directory = File.join(home_directory, ".heroku", "accounts")
-      FileUtils::mkdir_p(directory)
+      FileUtils::mkdir_p(directory, :mode => 0700)
       directory
     end
   end
