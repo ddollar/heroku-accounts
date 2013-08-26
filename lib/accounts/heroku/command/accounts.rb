@@ -177,7 +177,7 @@ private ######################################################################
   end
 
   def write_account(name, account)
-    File.open(account_file(name), "w") { |f| f.puts YAML::dump(account) }
+    File.open(account_file(name), "w", 0600) { |f| f.puts YAML::dump(account) }
   end
 
   def error(message)
