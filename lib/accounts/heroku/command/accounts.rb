@@ -85,6 +85,7 @@ class Heroku::Command::Accounts < Heroku::Command::Base
 
     error("Please specify an account name.") unless name
     error("That account does not exist.") unless account_exists?(name)
+    error("That account is the current account, set another account first.") if (current_account = Heroku::Auth.extract_account rescue nil) == name
 
     FileUtils.rm_f(account_file(name))
 
