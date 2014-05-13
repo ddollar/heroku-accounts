@@ -2,7 +2,7 @@ require "heroku/command/base"
 
 class Heroku::Command::Base
 
-  def git_remotes(base_dir)
+  def git_remotes(base_dir=Dir.pwd)
     remotes = {}
 
     return unless File.exists?(".git")
