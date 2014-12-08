@@ -106,6 +106,7 @@ class Heroku::Command::Accounts < Heroku::Command::Base
 
     error("Please specify an account name.") unless name
     error("That account does not exist.") unless account_exists?(name)
+    error("No heroku git remotes found in the current directory.") if git_remotes(Dir.pwd).nil?
 
     %x{ git config heroku.account #{name} }
 
