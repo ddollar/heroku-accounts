@@ -1,3 +1,9 @@
+### NOTE: Consider Using Heroku's Official Fork:
+
+Heroku has created an official fork of this repo. It supports http-git which is now the Heroku default:
+
+https://github.com/heroku/heroku-accounts
+
 # Heroku Accounts
 
 Helps use multiple accounts on Heroku.
