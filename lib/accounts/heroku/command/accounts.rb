@@ -93,6 +93,9 @@ class Heroku::Command::Accounts < Heroku::Command::Base
     if %x{ git config --global heroku.account }.chomp == name
       %x{ git config --global --unset heroku.account }
     end
+    if %x{ git config heroku.account }.chomp == name
+      %x{ git config --unset heroku.account }
+    end
 
     display "Account removed: #{name}"
   end
