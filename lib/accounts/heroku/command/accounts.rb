@@ -50,7 +50,7 @@ class Heroku::Command::Accounts < Heroku::Command::Base
 
     if options[:auto] then
       display "Generating new SSH key"
-      system %{ ssh-keygen -t rsa -f "#{account_ssh_key(name)}" -N "" }
+      system %{ ssh-keygen -t rsa -b 4096 -f "#{account_ssh_key(name)}" -N "" }
 
       display "Adding entry to ~/.ssh/config"
       File.open(File.expand_path("~/.ssh/config"), "a") do |file|
